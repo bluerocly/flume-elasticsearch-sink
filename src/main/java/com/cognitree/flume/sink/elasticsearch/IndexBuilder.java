@@ -39,4 +39,9 @@ public interface IndexBuilder extends Configurable {
      * Returns Id
      */
     String getId(Event event);
+    
+    /**
+     * Returns Id
+     */
+    int getDelayDays(Event event);
 }

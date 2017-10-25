@@ -84,12 +84,13 @@ public class ElasticSearchSink extends AbstractSink implements Configurable {
             if (event != null) {
                 String body = new String(event.getBody(), Charsets.UTF_8);
                 if (!Strings.isNullOrEmpty(body)) {
-                    logger.debug("start to sink event [{}].", body);
+                    logger.debug("start indexBuilder[{}] to sink event [{}].", indexBuilder,body);
                     String index = indexBuilder.getIndex(event);
                     String type = indexBuilder.getType(event);
                     String id = indexBuilder.getId(event);
+                    logger.debug("#########index[{}]  type[{}]", index,type);
                     XContentBuilder xContentBuilder = serializer.serialize(event);
-                    if(xContentBuilder != null) {
+                    if(index!=null && xContentBuilder != null) {
                         if (!StringUtil.isNullOrEmpty(id)) {
                             bulkProcessor.add(new IndexRequest(index, type, id)
                                     .source(xContentBuilder));

@@ -32,6 +32,8 @@ public class StaticIndexBuilder implements IndexBuilder {
     private String index;
 
     private String type;
+    
+    private Integer delayDays;
 
     @Override
     public String getIndex(Event event) {
@@ -59,13 +61,25 @@ public class StaticIndexBuilder implements IndexBuilder {
     public String getId(Event event) {
         return null;
     }
+    
+    @Override
+    public int getDelayDays(Event event) {
+    	Integer dealyDays;
+        if(this.delayDays!=null) {
+        	dealyDays = delayDays;
+        } else {
+        	dealyDays = DEFAULT_DELAY_DAYS;
+        }
+        return dealyDays;
+    }
 
     @Override
     public void configure(Context context) {
         this.index = Util.getContextValue(context, ES_INDEX);
         this.type = Util.getContextValue(context, ES_TYPE);
-        logger.info("Simple Index builder, name [{}] type [{}] ",
-                new Object[]{this.index, this.type});
+        this.delayDays = Util.getIntValue(context, DELAY_DAYS);
+        logger.info("Simple Index builder, name [{}] type [{}] delayDays[{}]",
+                new Object[]{this.index, this.type, this.delayDays});
 
     }
 }

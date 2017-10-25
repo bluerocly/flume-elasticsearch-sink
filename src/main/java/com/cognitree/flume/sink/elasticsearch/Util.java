@@ -97,7 +97,11 @@ public class Util {
         }
         return contextValue;
     }
-
+    
+    public static Integer getIntValue(Context context, String contextId) {
+    	return context.getInteger(contextId);
+    }
+    
     /**
      * Add csv field to the XContentBuilder
      */

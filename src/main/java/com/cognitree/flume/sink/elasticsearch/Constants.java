@@ -29,6 +29,9 @@ public class Constants {
     public static final String INDEX = "index";
     public static final String TYPE = "type";
     public static final String ID = "id";
+    
+    public static final String DELAY_DAYS = "delay_days";
+    public static final int DEFAULT_DELAY_DAYS = 3; // 默认最大延迟时间为3天
 
     public static final String ES_BULK_ACTIONS = "es.bulkActions";
     public static final Integer DEFAULT_ES_BULK_ACTIONS = 1000;
@@ -59,6 +62,8 @@ public class Constants {
 
     public static final String ES_TYPE = "es.type";
     public static final String DEFAULT_ES_TYPE = "default";
+    
+
 
     public static final String ES_INDEX_BUILDER = "es.index.builder";
     public static final String DEFAULT_ES_INDEX_BUILDER = "com.cognitree.flume.sink.elasticsearch.StaticIndexBuilder";
