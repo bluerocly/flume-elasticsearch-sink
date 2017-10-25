@@ -75,3 +75,32 @@ Example of agent named agent
   agent.sinks.es_sink.es.serializer.csv.delimiter=,
   agent.sinks.es_sink.es.serializer.avro.schema.file=/usr/local/schema.avsc
 ````
+--------------------
+**基于原来sink进行了如下修改**
+* 升级为5.5的es
+* 增加EventTimeIndexBuilder，基于数据中的EventTime创建索引，并且根据log data进行垃圾数据的过滤
+配置样例：
+````
+	a1.sinks.k1.type=com.cognitree.flume.sink.elasticsearch.ElasticSearchSink
+	a1.sinks.k1.es.bulkActions=5
+	a1.sinks.k1.es.bulkProcessor.name=bulkprocessor
+	a1.sinks.k1.es.bulkSize=5
+	a1.sinks.k1.es.bulkSize.unit=MB
+	a1.sinks.k1.es.concurrent.request=1
+	a1.sinks.k1.es.flush.interval.time=5s
+	a1.sinks.k1.es.backoff.policy.time.interval=50M
+	a1.sinks.k1.es.backoff.policy.retries=8
+	a1.sinks.k1.es.client.hosts=tpd1:9301
+	a1.sinks.k1.es.cluster.name=my-elasticsearch-5.5
+	a1.sinks.k1.es.client.transport.sniff=false
+	a1.sinks.k1.es.client.transport.ignore_cluster_name=false
+	a1.sinks.k1.es.client.transport.ping_timeout=5s
+	a1.sinks.k1.es.client.transport.nodes_sampler_interval=5s
+	a1.sinks.k1.es.index=logbo
+	a1.sinks.k1.es.type=typebo
+	#a1.sinks.k1.es.index.builder=com.cognitree.flume.sink.elasticsearch.HeaderBasedIndexBuilder
+	#a1.sinks.k1.es.index.builder=com.cognitree.flume.sink.elasticsearch.StaticIndexBuilder
+	a1.sinks.k1.es.index.builder=com.cognitree.flume.sink.elasticsearch.EventTimeBasedIndexBuilder
+	a1.sinks.k1.es.serializer=com.cognitree.flume.sink.elasticsearch.SimpleSerializer
+````
+
